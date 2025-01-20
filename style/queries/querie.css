@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+/* device breakpoints: 
+1-telas-menores:min-width:328px, max-width:767px
+2-tablets: min-width:768px, max-width:1024px;
+
+3-desktops: min-width:1025px, max-width:1880px
+4-telas-maiores: min-width:1881px
+*/
+
+/* media para tablets */
+@media screen and (min-width:768px){
+    main > div.conteiner{
+        margin-top: 10%;
+    }
+    main > div.conteiner > div.carta{
+        width: 90px;
+        height: 160px;
+        /* margin: 8px 50px;a */
+        margin: 8px 18px;
+    }
+    form{
+        width: 70%;
+        height: 45%;
+    }
+    form > div#imagem{
+        margin-top: 15%;
+    }
+    form > div#imagem > img{
+        width: 220px;
+        height: 220;
+    }
+    form  > input{
+        width: 40%;
+        margin-top: 35px;
+        margin-left: 10%;
+        
+    }
+    form > input[type="submit"]{
+        width: 15%;
+    }
+
+}
+
+/* media para laptop: */
+@media screen and (min-width:1024px){
+    main > div.conteiner{
+        margin-top:10%;
+    }
+    main > div.conteiner > div.carta{
+        width: 100px;
+        height: 190px;
+        margin: 15px 30px;
+    }
+}
+
+/* media para desktops */
+@media screen and (min-width:1280px){
+    main > div.conteiner{
+        margin-top: 3%;
+    }
+    main > div.conteiner > div.carta{
+        width: 100px;
+        height: 190px;
+        margin: 10px 25px;
+    }
+    form{
+        width: 50%;
+        height: 60%;
+    }
+    form > div#imagem{
+        margin-top: 4%;
+    }
+    form > div#imagem > img{
+        width: 200px;
+        height: 200;
+    }
+    form  > input{
+        width: 40%;
+        margin-top: 25px;
+        margin-left: 10%;
+    }
+    form > input[type="submit"]{
+        width: 15%;
+    }
+
+}
+
+/* media para televisões 1080p full hd*/
+@media screen and (min-width:1920px){
+    header > h1{
+        font-size: 35px;
+        padding-top: 25px;
+    }
+    main > div.conteiner{
+        margin-top: 3%;
+    }
+    main > div.conteiner > div.carta{
+        width: 120px;
+        height: 210px;
+        margin: 10px 50px;
+    }
+    form{
+        width: 45%;
+        height: 50%;
+    }
+    form > div#imagem{
+        margin-top: 8%;
+    }
+    form > div#imagem > img{
+        width: 210px;
+        height: 210;
+    }
+    form  > input{
+        width: 40%;
+        margin-top: 25px;
+        margin-left: 10%;
+    }
+    form > input[type="submit"]{
+        width: 15%;
+    }
+}

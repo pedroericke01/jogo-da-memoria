@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- chamada as media queries e css -->
+    <link rel="stylesheet" href="../style/style.css" media="all">
+    <link rel="stylesheet" href="../style/queries/querie.css">
+    
+    <!-- chamada ao javascript -->
+    <script src="../script/jogo-da-memoria.js" defer></script>
+
+    <title>Jogo da Memória</title>
+</head>
+<body>
+    
+    <header>
+        <h1 id="saudacoes">Olá mundo!</h1>
+    </header>
+
+    <main>
+        <div class="conteiner"></div>
+    </main>
+
+    <!-- criando uma modal, apartir da tag 'dialog' onde por padrão ja tem o seu 
+    display = "none": -->
+    <dialog>
+
+        <form action="#" method="post">
+
+            <div id="imagem">
+                <img src="../images/image-home/home-png" alt="imagem-animação">
+            </div>
+            
+            <input type="text" name="nome" id="nome" placeholder="Digite seu primeiro nome" maxlength="20" required>
+            
+            <input type="submit" value="Começar">
+
+        </form>
+        
+    </dialog>
+
+</body>
+</html>
