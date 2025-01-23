@@ -1,3 +1,68 @@
+/* função para formatação correta da exibição do temporizador para os usuários: */
+function formatar_dados(dado){
+    if(dado < 10){
+        return `0${dado}`;
+    }else{
+        return dado;
+    }
+}
+
+/* função de controle do temporizador no sistema: */
+function iniciar_temporizador(){
+    /* atribuindo ao temporizador a função callback SetInterval, que me permite 
+    criar um loop infinito onde em determinado numero de milesegundos executar alguma
+    operação: */
+    temporizador = setInterval(()=>{
+        /* acrescentando 10 novos milesegundos válidos: */
+        quant_milesegundos += 10;
+
+        /* 1 segundo equivale a 1000 milesegudos: */
+        if(quant_milesegundos == 1000){
+            /* acrescentando 1 novo segundo válido: */
+            quant_segundos += 1;
+
+            /* zerando a quantidade de milesegundos antiga, visando iniciar outra 
+            nova: */
+            quant_milesegundos = 0;
+        }
+
+        /* 1 minuto equivale a 60 segundos: */
+        if(quant_segundos == 60){
+            /* acrescentando 1 novo minuto válido: */
+            quant_minutos += 1;
+
+            /* zerando a quantidade de segundos: */
+            quant_segundos = 0;
+        }
+
+        /* 1 hora equivale a 60 minutos */
+        if(quant_minutos == 60){
+            /* acrescentando 1 hora válida: */
+            quant_horas += 1;
+
+            /* zerando a quantidade de minutos antiga: */
+            quant_minutos = 0;
+        }
+
+        /* exibir os dados para o usuário: */
+        horas.innerHTML = `${formatar_dados(quant_horas)}`;
+        minutos.innerHTML = `${formatar_dados(quant_minutos)}`;
+        segundos.innerHTML = `${formatar_dados(quant_segundos)}`;
+
+    }, 10);
+}
+
+function parar_temporizador(){
+    /* zerar os dados do temporizador no ultimo jogo */
+    quant_milesegundos = 0;
+    quant_segundos = 0;
+    quant_minutos = 0;
+    quant_horas = 0;
+
+    /* parando a execução do temporizador: */
+    clearInterval(temporizador);
+}
+
 function cartas_iguais(carta_1, carta_2){
     /* pegando atributos pelo nome: */
     var carta_1 = carta_1.getAttribute('nome-tribo');
@@ -6,9 +71,19 @@ function cartas_iguais(carta_1, carta_2){
     /* se o usuário acertar, vamos manter a carta exibida, caso contrário, vamos
     escondê-la novamente removendo a classe 'virar-carta' */
     if(carta_1 == carta_2){
-        carta1 = "";
-        carta2= "";
-    }else{
+        /* adicionar o par das cartas iguais encontradas na estrutura dos dados
+        auxiliar: */
+        cartas_encontradas.push(carta_1);
+
+        /*  */
+        if(cartas_encontradas.length == 12){
+            finalizar_jogo();
+        }else{
+            /* limpando a variável global, isso me permitirá clicar em outras cartas: */
+            carta1 = "";
+            carta2= "";
+        }
+        }else{
         /* caso o usuário erre as cartas, vamos esperar 500 milesegundos para esconder
         as cartas novamente */
         setTimeout(()=>{
@@ -136,8 +211,12 @@ function nome_valido(nome){
     }
 
 }
+
 /* função para iniciar o jogo: */
 function iniciar_jogo(){
+
+    /* chamada para iniciar o temporizador do game: */
+    iniciar_temporizador();
 
     for(let cont=0; cont < tribos.length; cont +=1){
         
@@ -158,7 +237,22 @@ function iniciar_jogo(){
             cont -= 1;
         }
     }
+
 }
+
+function finalizar_jogo(){
+    /* criando a mensagem de sucesso dinÂmicamente: */
+    mensagem_final.innerText = `Parabens, Seu tempo record foi ${quant_horas}:${quant_minutos}:${quant_segundos}`;
+    
+    /* vamos parar o temporizador */
+    parar_temporizador();
+
+    /* vamos exibir o dialogo de parabens com a mensagem de finalização
+    para o usuário: */
+    dialog_final.style.display = "block";
+
+}
+
 
 /* principal base de dados que vai me permitir percorrer e gerar todas as imagens
 dinâmicamente no front end para usuários: */
@@ -189,38 +283,60 @@ const tribos = [
    "zebulom"
 ];
 
-/* estrutura de dados auxiliar */
+/* estrutura de dados auxiliar, onde o sistema vai automaticamente controlar sua 
+escolha das 2 cartas, sem haver uma 3 repetição:*/
 const cartas_escolhidas = [];
+
+/* estrutura de dados auxiliar, onde no momento que o usuário encontrar 1 par igual, 
+o nome da carta será adicionado nessa estrutura: */
+var cartas_encontradas = [];
 
 /* garantindo que o usuário escolha apenas 2 cartas por vez: */
 var carta1 = "";
 var carta2 = "";
+
+/* variavel global que me permitira controlar o correto funcionamento do temporizador: */
+var quant_milesegundos = 0;
+var quant_segundos = 0;
+var quant_minutos = 0;
+var quant_horas = 0;
+var temporizador = 0;
+
+/* ligando as variáveis interativas do temporizador ao javascript: */
+var horas = window.document.getElementById("horas");
+var minutos = window.document.getElementById("minutos");
+var segundos = window.document.getElementById("segundos");
 
 /* ligando o conteiner onde vamos estruturar as cartas corretamente com flexbox: */
 const conteiner_cartas = window.document.querySelector("main > div.conteiner");
 
 /* ligando as principais variáveis para realizar a correta saudação para os jogadores: */
 const cabecalho = window.document.querySelector("body > header");
-var saudacoes = window.document.getElementById('saudacoes');
+var nome_jogador = window.document.getElementById('nome-jogador');
 
-/* primeiros elementos que vão aparecer aos players quando eles entrarem: */
-const dialog = window.document.querySelector("body > dialog");
+/* atualização de amanhã */
+var mensagem_final = window.document.getElementById("mensagem_final");
+
+/* primeiros elementos que vão aparecer aos players quando eles entrarem
+o formulário: */
+const dialog_inicio = window.document.querySelector("body > dialog#comeco");
+const dialog_final = window.document.querySelector("body > dialog#final");
 const formulario = window.document.querySelector("body > dialog > form");
-const txt_nome = window.document.getElementById('nome')
+const txt_nome = window.document.getElementById('nome');
 
 /* escondendo o cabeçalho:*/
 cabecalho.style.display = "none";
 
 // exibindo a tag dialog */
-dialog.style.display = "block";
+dialog_inicio.style.display = "block";
 
-
+/* envio de dados pelo formulário: */
 formulario.addEventListener("submit", (event)=>{
     
     event.preventDefault();
 
     /* captar o dado da variável nome */
-   const nome = String(txt_nome.value).trim().toLowerCase();
+    const nome = String(txt_nome.value).trim().toLowerCase();
     
     /* validando o nome: */
     const resultado_nome = nome_valido(nome);
@@ -232,13 +348,13 @@ formulario.addEventListener("submit", (event)=>{
         localStorage.setItem("player", nome);
 
         /* ocultando a tag dialog: */
-        dialog.style.display = "none";
+        dialog_inicio.style.display = "none";
 
         /* exibindo o header com a mensagem de saudação */
-        saudacoes.innerHTML = `Aproveite o Jogo ${nome}`;
+        nome_jogador.innerHTML = `${nome}`;
         
         /* exibindo o cabeçalho: */
-        cabecalho.style.display = "block";
+        cabecalho.style.display = "flex";
 
         /* limpando o campo de input nome */
         txt_nome.value = "";

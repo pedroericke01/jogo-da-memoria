@@ -15,16 +15,30 @@
 <body>
     
     <header>
-        <h1 id="saudacoes">Olá mundo!</h1>
+
+        <h1 id="nome-jogador">Olá mundo!</h1>
+        
+        <div id="relogio">
+
+            <div id="horas">00</div>
+
+            <div class="separador">:</div>
+            
+            <div id="minutos">00</div>
+            
+            <div class="separador">:</div>
+            
+            <div id="segundos">00</div>
+
+        </div>
+
     </header>
 
     <main>
         <div class="conteiner"></div>
     </main>
 
-    <!-- criando uma modal, apartir da tag 'dialog' onde por padrão ja tem o seu 
-    display = "none": -->
-    <dialog>
+    <dialog id="comeco">
 
         <form action="#" method="post">
 
@@ -38,6 +52,14 @@
 
         </form>
         
+    </dialog>
+
+    <dialog id="final">
+
+        <p id="mensagem_final">parabens!</p>
+
+        <input type="button" value="Jogar novamente">
+
     </dialog>
 
 </body>
