@@ -19,7 +19,7 @@
         /* margin: 8px 50px;a */
         margin: 8px 18px;
     }
-    /* configurando a dialog: */
+    /* configurando a dialog de começo*/
     body > dialog#comeco{
         width: 90%;
         height: 80%;
@@ -44,7 +44,10 @@
     dialog#comeco > form > input[type="submit"]{
         width: 15%;
     }
-
+    /* configuração de dialogo do final */
+    dialog#final > p{
+        font-size: 25px;
+    }
 }
 
 /* media para laptop: */
@@ -57,12 +60,18 @@
         height: 190px;
         margin: 15px 30px;
     }
-    /* configurando a dialog: */
+    /* configurando a dialog do inicio */
     body > dialog#comeco{
-
         width: 80%;
-        height: 70%;
-        
+        height: 70%;       
+    }
+    /* configuração do dialog do final */
+
+    dialog#final > p{
+        font-size: 28px;
+    }
+    dialog#final > input[type="button"]{
+        padding: 10px;
     }
 }
 

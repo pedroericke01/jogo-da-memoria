@@ -241,18 +241,26 @@ function iniciar_jogo(){
 }
 
 function finalizar_jogo(){
+
     /* criando a mensagem de sucesso dinÂmicamente: */
-    mensagem_final.innerText = `Parabens, Seu tempo record foi ${quant_horas}:${quant_minutos}:${quant_segundos}`;
+    mensagem_final.innerText = `Parabens, Seu tempo record foi ${formatar_dados(quant_horas)}:${formatar_dados(quant_minutos)}:${formatar_dados(quant_segundos)}`;
     
     /* vamos parar o temporizador */
     parar_temporizador();
 
+    /* ocultando o contêner das cartas: */
+    conteiner_cartas.style.display = "none";
+
     /* vamos exibir o dialogo de parabens com a mensagem de finalização
     para o usuário: */
-    dialog_final.style.display = "block";
+    dialog_final.style.display = "flex";
 
 }
-
+/* essa função vai simplesmente fazer um reload no nosso sistema: */
+function reiniciar_jogo(){
+    /* fazer o reload com javascript: */
+    window.location.reload();
+}
 
 /* principal base de dados que vai me permitir percorrer e gerar todas as imagens
 dinâmicamente no front end para usuários: */
@@ -324,6 +332,8 @@ const dialog_final = window.document.querySelector("body > dialog#final");
 const formulario = window.document.querySelector("body > dialog > form");
 const txt_nome = window.document.getElementById('nome');
 
+const jogar_novamente = window.document.querySelector("dialog#final > input");
+
 /* escondendo o cabeçalho:*/
 cabecalho.style.display = "none";
 
@@ -362,3 +372,6 @@ formulario.addEventListener("submit", (event)=>{
         iniciar_jogo();
     }    
 });
+
+/* adicionando um ouvidor de eventos de clique no botão de jogar novamente: */
+jogar_novamente.addEventListener("click", reiniciar_jogo);
