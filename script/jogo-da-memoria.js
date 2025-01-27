@@ -74,8 +74,9 @@ function cartas_iguais(carta_1, carta_2){
         /* adicionar o par das cartas iguais encontradas na estrutura dos dados
         auxiliar: */
         cartas_encontradas.push(carta_1);
-
-        /*  */
+        
+        /* verificando o tamanho da estrutura que controla a finalização
+        do jogo da memória: */
         if(cartas_encontradas.length == 12){
             finalizar_jogo();
         }else{
@@ -242,6 +243,13 @@ function iniciar_jogo(){
 
 function finalizar_jogo(){
 
+    /* removendo todos os elementos filhos de um elemento pai, através do DOM 
+    enquanto houver elementos filhos, vamos remover esses elementos filhos através
+    do loop while:*/
+    while(conteiner_cartas.firstChild){
+        conteiner_cartas.removeChild(conteiner_cartas.firstChild);
+    }
+    
     /* criando a mensagem de sucesso dinÂmicamente: */
     mensagem_final.innerText = `Parabens, Seu tempo record foi ${formatar_dados(quant_horas)}:${formatar_dados(quant_minutos)}:${formatar_dados(quant_segundos)}`;
     
@@ -256,44 +264,64 @@ function finalizar_jogo(){
     dialog_final.style.display = "flex";
 
 }
+
 /* essa função vai simplesmente fazer um reload no nosso sistema: */
 function reiniciar_jogo(){
-    /* fazer o reload com javascript: */
-    window.location.reload();
+
+    /* ocultar a tag dialog final: */
+    dialog_final.style.display = "none";
+
+    /* limpando os dados antigos do temporizador salvo: */
+    horas.innerHTML = "00";
+    minutos.innerHTML ="00";
+    segundos.innerHTML ="00";
+
+    /* vamos limpar as principais estruturas de dados do meu sistema: */
+    cartas_escolhidas = [];
+    cartas_encontradas = [];
+    carta1 = "";
+    carta2 = "";
+    
+    /* exibir a interface do jogo: */
+    conteiner_cartas.style.display = "flex";
+
+    /* após limpar as principais estruturas do meu sistema, vamos fazer chamada 
+    a função de iniciar o jogo: */
+    iniciar_jogo();
 }
 
 /* principal base de dados que vai me permitir percorrer e gerar todas as imagens
 dinâmicamente no front end para usuários: */
 const tribos = [
-   "asser",
-   "benjamim",
-   "efraim",
-   "gade",
-   "issacar",
-   "juda",
-   "levi",
-   "manasses",
-   "naftali",
-   "ruben",
-   "simeao",
-   "zebulom",
     "asser",
-   "benjamim",
-   "efraim",
-   "gade",
-   "issacar",
-   "juda",
-   "levi",
-   "manasses",
-   "naftali",
-   "ruben",
-   "simeao",
-   "zebulom"
+    "benjamim",
+    "efraim",
+    "gade",
+    "issacar",
+    "juda",
+    "levi",
+    "manasses",
+    "naftali",
+    "ruben",
+    "simeao",
+    "zebulom",
+     "asser",
+    "benjamim",
+    "efraim",
+    "gade",
+    "issacar",
+    "juda",
+    "levi",
+    "manasses",
+    "naftali",
+    "ruben",
+    "simeao",
+    "zebulom"
 ];
 
 /* estrutura de dados auxiliar, onde o sistema vai automaticamente controlar sua 
 escolha das 2 cartas, sem haver uma 3 repetição:*/
-const cartas_escolhidas = [];
+var cartas_escolhidas = [];
 
 /* estrutura de dados auxiliar, onde no momento que o usuário encontrar 1 par igual, 
 o nome da carta será adicionado nessa estrutura: */
